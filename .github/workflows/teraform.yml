@@ -42,7 +42,7 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
       with:
-        terraform_version: 
+        terraform_version: ${{ env.TF_VERSION }}
 
     # Initialize a new or existing Terraform working directory
     - name: Terraform Init
@@ -61,14 +61,14 @@ jobs:
     - name: Terraform Plan
       run: terraform plan -out=tfplan
       env:
-        TF_VAR_project_id: 
+        TF_VAR_project_id: ${{ secrets.GCP_PROJECT_ID }}
 
     # Apply the Terraform plan (only on push to main branch)
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: terraform apply -auto-approve tfplan
       env:
-        TF_VAR_project_id: 
+        TF_VAR_project_id: ${{ secrets.GCP_PROJECT_ID }}
 
     # Upload the plan for review (on pull requests)
     - name: Upload Terraform Plan
