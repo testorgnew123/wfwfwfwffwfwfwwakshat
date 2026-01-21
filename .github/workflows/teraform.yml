@@ -9,7 +9,7 @@ on:
       - dev
 
 env:
-  TF_VERSION: '1.6.0'
+  TF_VERSION: '6.8.0'
   GCP_REGION: 'us-central1'
 
 jobs:
